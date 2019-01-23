@@ -1,0 +1,55 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import "~font-awesome/css/font-awesome.css";
+@import "~bootstrap/dist/css/bootstrap.css";
+
+/* Home */
+.home {
+  display: grid;
+  grid-template-columns: auto 400px;
+  grid-template-areas: 'main sidebar'
+}
+.saved-queries {
+  grid-area: sidebar;
+  height: 100%;
+
+}
+.main {
+  grid-area: main;
+}
+
+.form-group > label {
+  font-weight: bold;
+}
+.spinny {
+  -animation: spin .7s infinite linear;
+  -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+
+/* Heading */
+nav > a.nav-link {
+  color: white;
+}
+
+.header-logo {
+  width: 30px;
+  position: relative;
+  top: -1px;
+}
+
+/* Sidebar */
+.saved-queries-title {
+  /* padding: 0.5rem 1.25rem; */
+}
