@@ -7,11 +7,12 @@ class Heading extends Component {
       <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
         <Link className="navbar-brand" to="/">
           AppTaco
-        </Link>>
+        </Link>
+        >
         <Link className="nav-link" to="/">
           Home
         </Link>
-        <Link className="nav-link" to="/">
+        <Link className="nav-link" to="/share">
           Share
         </Link>
         <Link className="nav-link" to="/">
