@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import tacos from './routes/tacos'
+import tacoDetails from './routes/tacoDetails'
 
 const app = express()
 const port = process.env.PORT || 5656
@@ -17,6 +18,7 @@ app.post('/api/stuff', (req, res) => {
 })
 
 app.get('/api/v1/tacos', tacos)
+app.get('/api/v1/tacos/:id', tacoDetails)
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}`)

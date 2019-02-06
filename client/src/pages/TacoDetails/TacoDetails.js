@@ -1,34 +1,11 @@
 import React, { Component } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-
-const fakeData = {
-  name: 'stuff',
-  version: '1.3',
-  tags: ['java', 'spring'],
-  authors: 'Einstein',
-  description: 'Lorem ipsum.....',
-  ingredients: [
-    {
-      type: 'btRules',
-      contents: 'JSON from Config exporter',
-      doc: 'This is a good config',
-    },
-    {
-      type: 'eum',
-      contents: 'JSON from Config exporter',
-      doc: 'This is the best config',
-    },
-  ],
-}
 
 class TacoDetails extends Component {
   render() {
-    const { match } = this.props
-    const { id } = match.params
-    console.log(id)
-
-    const { name, description, version, tags, authors, ingredients } = fakeData
+    const { id, name, description, version, tags, authors, ingredients } =
+      this.props.taco || {}
     return (
       <div className="container">
         <Helmet>
@@ -90,4 +67,4 @@ class TacoDetails extends Component {
   }
 }
 
-export default withRouter(TacoDetails)
+export default TacoDetails
