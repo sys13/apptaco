@@ -8,7 +8,6 @@ class Heading extends Component {
         <Link className="navbar-brand" to="/">
           AppTaco
         </Link>
-        >
         <Link className="nav-link" to="/">
           Home
         </Link>
