@@ -39,19 +39,28 @@ class TacoList extends Component {
         }
       )
   }
-
+  search(searchQuery, items) {
+    return items.filter(
+      ({ name, description }) =>
+        name.includes(searchQuery) || description.includes(searchQuery)
+    )
+  }
   render() {
     const { error, isLoaded, items } = this.state
+
     if (error) {
       return <div>Error: {error.message}</div>
     } else if (!isLoaded) {
       return <div>Loading...</div>
     } else {
+      const { searchQuery } = this.props
+      const filteredItems =
+        searchQuery === '' ? items : this.search(searchQuery, items)
       return (
         <div className="card-columns">
-          {items &&
-            items.length &&
-            items.map(({ id, name, description }) => (
+          {filteredItems &&
+            filteredItems.length &&
+            filteredItems.map(({ id, name, description }) => (
               <TacoItem
                 key={id}
                 id={id}

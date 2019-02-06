@@ -4,6 +4,14 @@ import { Helmet } from 'react-helmet'
 import TacoList from '../../components/TacoList/TacoList.js'
 
 class Landing extends Component {
+  state = {
+    search: '',
+  }
+  handleInputChange = ({ target: { name, value } }) => {
+    this.setState({
+      [name]: value,
+    })
+  }
   render() {
     return (
       <div>
@@ -22,8 +30,11 @@ class Landing extends Component {
               type="text"
               className="form-control"
               placeholder="Search"
+              name="search"
               aria-label="Search"
               aria-describedby="button-addon2"
+              onChange={this.handleInputChange}
+              value={this.state.search}
             />
             <div className="input-group-append">
               <button
@@ -35,7 +46,7 @@ class Landing extends Component {
               </button>
             </div>
           </div>
-          <TacoList />
+          <TacoList searchQuery={this.state.search} />
         </div>
       </div>
     )
