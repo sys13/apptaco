@@ -15,6 +15,9 @@ class Heading extends Component {
         <Link className="nav-link" to="/share">
           Share
         </Link>
+        <Link className="nav-link" to="/config">
+          Config
+        </Link>
         <Link className="nav-link" to="/">
           Help
         </Link>
