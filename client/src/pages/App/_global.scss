@@ -24,16 +24,16 @@ i.glyphicon {
 }
 
 .btn-add::after {
-  content: "+";
+  content: '+';
 }
 .array-item-move-up::after {
-  content: "Move Up";
+  content: 'Move Up';
 }
 .array-item-move-down::after {
-  content: "Move Down";
+  content: 'Move Down';
 }
 .array-item-remove::after {
-  content: "Remove";
+  content: 'Remove';
 }
 
 .radio-inline > span > input {
@@ -56,5 +56,5 @@ i.glyphicon {
 }
 
 .checkbox > label > input {
-  margin-right : 10px;
+  margin-right: 10px;
 }
