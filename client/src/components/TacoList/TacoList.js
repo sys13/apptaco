@@ -1,18 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const TacoItem = ({ name, id }) => (
-  <div className="card">
-    <div class="card-body">
-      <h5 class="card-title">{name}</h5>
-      <p class="card-text">Lorem ispum</p>
+const TacoItem = ({ id, name, description }) => (
+  <Link to={`/taco/${id}`}>
+    <div className="card">
+      <div className="card-body">
+        <h5 className="card-title">{name}</h5>
+        <p className="card-text text-dark">{description}</p>
+      </div>
     </div>
-    <div class="card-footer">
-      <Link to={`/taco/${id}`} className="btn bn-primary">
-        Deploy
-      </Link>
-    </div>
-  </div>
+  </Link>
 )
 
 class TacoList extends Component {
@@ -28,7 +25,7 @@ class TacoList extends Component {
         result => {
           this.setState({
             isLoaded: true,
-            items: result.tacos,
+            items: result,
           })
         },
         // Note: it's important to handle errors here
@@ -54,8 +51,13 @@ class TacoList extends Component {
         <div className="card-columns">
           {items &&
             items.length &&
-            items.map(({ id, name }) => (
-              <TacoItem key={id} id={id} name={name} />
+            items.map(({ id, name, description }) => (
+              <TacoItem
+                key={id}
+                id={id}
+                name={name}
+                description={description}
+              />
             ))}
         </div>
       )

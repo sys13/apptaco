@@ -18,7 +18,12 @@ app.post('/api/stuff', (req, res) => {
 app.get('/api/v1/tacos', (req, res) => {
   console.log(req.body.post)
 
-  res.send({ })
+  const sampleList = [
+    { id: '1', name: 'foo', description: 'lorem ipsum sit dolor' },
+    { id: '2', name: 'bar', description: 'lorem ipsum sit dolor' },
+    { id: '3', name: 'baz', description: 'lorem ipsum sit dolor' },
+  ]
+  res.send(sampleList)
 })
 
 app.listen(port, () => {
