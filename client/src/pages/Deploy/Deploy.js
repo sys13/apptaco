@@ -8,7 +8,6 @@ class Deploy extends Component {
     deployMsg: '',
   }
   deploy = async () => {
-    debugger // eslint-disable-line
     this.setState({
       deploying: true,
       deployMsg: 'Deploying, not for real though LOL',
