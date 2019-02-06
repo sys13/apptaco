@@ -1,18 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
-
-const TacoItem = ({ name, id }) => (
-  <Link to={`/taco/${id}`} className="list-group-item list-group-item-action">
-    {name}
-  </Link>
-)
-
-const sampleList = [
-  { id: '1', name: 'foo' },
-  { id: '2', name: 'bar' },
-  { id: '3', name: 'baz' },
-]
+import TacoList from '../../components/TacoList/TacoList.js'
 
 class Landing extends Component {
   render() {
@@ -46,11 +35,7 @@ class Landing extends Component {
               </button>
             </div>
           </div>
-          <div className="list-group">
-            {sampleList.map(({ id, name }) => (
-              <TacoItem key={id} id={id} name={name} />
-            ))}
-          </div>
+          <TacoList />
         </div>
       </div>
     )
