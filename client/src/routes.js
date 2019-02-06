@@ -12,7 +12,7 @@ export default [
   // share
   { path: '/share', component: Share, exact: true },
   // deploy
-  { path: '/taco/:id/deploy', component: Deploy, exact: true },
+  { path: '/taco/:id/deploy/:deployScope', component: Deploy, exact: true },
   // about
   { path: '/about', component: About, exact: true },
 ]

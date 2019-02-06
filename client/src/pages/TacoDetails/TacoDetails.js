@@ -32,11 +32,11 @@ class TacoDetails extends Component {
     return (
       <div className="container">
         <Helmet>
-          <title>AppTaco</title>
+          <title>AppTaco - Taco</title>
         </Helmet>
         <div className="my-3">
           <h1 className="taco-details-title d-inline">Taco</h1>
-          <Link to={`/deploy/${id}/deploy/all`}>
+          <Link to={`/taco/${id}/deploy/all`}>
             <button className="btn btn-primary float-right">Deploy Taco</button>
           </Link>
         </div>
@@ -75,7 +75,7 @@ class TacoDetails extends Component {
               ? ingredients.map(({ type, doc }) => (
                   <li key={type} className="list-group-item">
                     <b>{type}</b> - {doc}
-                    <Link to={`/deploy/${id}/deploy/${type}`}>
+                    <Link to={`/taco/${id}/deploy/${type}`}>
                       <button className="btn btn-secondary float-right">
                         Deploy Ingredient
                       </button>
