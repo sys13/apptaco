@@ -36,17 +36,38 @@ export default class Config extends Component {
   onTestConnection = async event => {
     event.preventDefault()
 
-    const config =
-      Cookies.get('controllerConfig') &&
-      JSON.parse(Cookies.get('controllerConfig'))
-    console.log(config)
+    const { host, username, password, account, port, https } =
+      (Cookies.get('controllerConfig') &&
+        JSON.parse(Cookies.get('controllerConfig'))) ||
+      {}
 
-    // testConnection({ config }).then(({ succeeded }) => {
-    //   this.setState({
-    //     succeeded,
-    //     connectionTested: true,
-    //   })
-    // })
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/testConnection`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        post: { host, username, password, account, port, https },
+      }),
+    })
+      .then(res => {
+        res.json().then(({ succeeded }) => {
+          console.log(succeeded)
+
+          this.setState({
+            succeeded,
+            connectionTested: true,
+          })
+        })
+      })
+      .catch(res => {
+        res.json().then(() => {
+          this.setState({
+            succeeded: false,
+            connectionTested: false,
+          })
+        })
+      })
   }
   render() {
     return (
