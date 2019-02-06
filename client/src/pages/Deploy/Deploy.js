@@ -8,17 +8,21 @@ class Deploy extends Component {
     deployMsg: '',
   }
   deploy = async () => {
+    debugger // eslint-disable-line
     this.setState({
       deploying: true,
       deployMsg: 'Deploying, not for real though LOL',
     })
-    const response = await fetch('/api/stuff', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ post: { morestuff: 4 } }),
-    })
+    const response = await fetch(
+      `${process.env.REACT_APP_SERVER_URL}/api/stuff`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ post: { morestuff: 4 } }),
+      }
+    )
     const body = await response.json()
     console.log(body)
   }

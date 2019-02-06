@@ -8,6 +8,8 @@
     "build-css": "node-sass-chokidar src/ -o src/",
     "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
     "analyze": "npm run build && source-map-explorer build/static/js/main.*",
+    "dev": "env-cmd .env.development npm start",
+    "dev-prod-server": "env-cmd .env.production npm start",
     "start": "npm-run-all -p watch-css start-js",
     "start-js": "env-cmd .env.development react-scripts start",
     "build": "npm-run-all build-css build-js",
