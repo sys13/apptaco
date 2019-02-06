@@ -1,1 +1,1 @@
-This is the server that will host the packs
+This is the server that clients will communicate with

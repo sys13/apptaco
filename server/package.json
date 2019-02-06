@@ -1,0 +1,29 @@
+{
+  "name": "apptaco-server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "env-cmd": "^8.0.2",
+    "express": "^4.16.4",
+    "husky": "^1.3.1",
+    "lint-staged": "^8.1.3",
+    "popper.js": "^1.14.7",
+    "prettier": "^1.16.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "nodemon": "^1.18.9"
+  }
+}
