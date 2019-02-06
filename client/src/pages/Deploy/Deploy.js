@@ -7,25 +7,38 @@ class Deploy extends Component {
     deploying: false,
     deployMsg: '',
   }
-  deploy = async () => {
+  deploy = () => {
+    const { id, deployScope } = this.props
     this.setState({
       deploying: true,
-      deployMsg: 'Deploying, not for real though LOL',
+      deployMsg: 'Deployment in progress',
     })
-    const response = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/api/stuff`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ post: { morestuff: 4 } }),
-      }
-    )
-    const body = await response.json()
-    console.log(body)
+    fetch(`${process.env.REACT_APP_SERVER_URL}/api/v1/tacos/${id}/deploy`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ post: { deployScope } }),
+    })
+      .then(res => {
+        res.json().then(({ msg }) => {
+          this.setState({
+            deploying: false,
+            deployMsg: msg,
+          })
+        })
+      })
+      .catch(res => {
+        res.json().then(({ msg }) => {
+          this.setState({
+            deploying: false,
+            deployMsg: msg,
+          })
+        })
+      })
   }
   render() {
+    const { controllerHost } = this.props
     return (
       <div className="container">
         <Helmet>
@@ -33,9 +46,14 @@ class Deploy extends Component {
         </Helmet>
         <div className="my-3">
           <h1 className="taco-details-title">Deploy Taco</h1>
-          <div>
-            No config entered yet. Add your controller details to{' '}
-            <Link to="/config">Config</Link>
+          <div className="mb-3">
+            {controllerHost
+              ? `Using controller host: '${controllerHost}'`
+              : 'No controller config set up yet'}
+
+            <div>
+              <Link to="/config">Open Config screen</Link>
+            </div>
           </div>
           <button
             type="button"
