@@ -18,6 +18,9 @@ AppTaco is already deployed to https://sys13.github.io/apptaco
 
 [GitHub Deploy Instructions](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#github-pages)
 
+- The client can be deployed with `npm run deploy`.
+- The server can be deployed with `./deployServer.sh` or `./deployServerForce.sh`
+
 # Maintainer
 
 You can contact the AppTaco team at apptaco@appdynamics.com
