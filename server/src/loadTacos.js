@@ -19,6 +19,8 @@ var download = (uri, filename, callback) => {
 export default (loadImages = true, loadTemplates = false) => {
   console.log('1. loading tacos')
 
+  const dir = process.env.WRITE_FOLDER || process.cwd()
+
   const options = {
     headers: { 'User-Agent': 'Mozilla/5.0' },
     hostname: 'api.github.com',
@@ -57,11 +59,11 @@ export default (loadImages = true, loadTemplates = false) => {
 
             download(
               'https://github.com/erikwennerberg/apptacos/archive/master.zip',
-              'tacos.zip',
+              path.resolve(dir, 'tacos.zip'),
               () => {
                 console.log('b2 download done')
-                console.log('b3 unzipping tacos.zip to ' + process.cwd())
-                extract('tacos.zip', { dir: process.cwd() }, err => {
+                console.log('b3 unzipping tacos.zip to ' + dir)
+                extract('tacos.zip', { dir }, err => {
                   console.log(err)
                 })
               }
@@ -69,7 +71,9 @@ export default (loadImages = true, loadTemplates = false) => {
           } else {
             console.log('4.no need to update')
             let tacos = []
-            const tacoDir = 'apptacos-master'
+            const tacoDir = path.resolve(dir, 'apptacos-master')
+            console.log('tacoDir: ' + tacoDir)
+
             fs.readdir(tacoDir, function(err, files) {
               if (err) {
                 console.error('Could not list the directory.', err)
@@ -78,7 +82,7 @@ export default (loadImages = true, loadTemplates = false) => {
               console.log('starting for each')
 
               files.forEach((file, index) => {
-                const filePath = path.join(tacoDir, file)
+                const filePath = path.resolve(tacoDir, file)
                 const stats = fs.statSync(filePath)
 
                 // level 1 we are in a taco now

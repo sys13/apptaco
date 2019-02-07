@@ -85,7 +85,7 @@ export default async (req, res) => {
 
   const existing = existingConfigs.find(e => {
     return (
-      e.url === config.url.replace('/contrller', '') &&
+      e.url === config.url.replace('/controller', '') &&
       e.user === config.auth.user.split('@')[0] &&
       e.account == config.auth.user.split('@')[1]
     )
