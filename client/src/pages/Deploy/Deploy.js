@@ -159,7 +159,7 @@ class DeploymentConfig extends Component {
                           onClick={this.handleCloseColor}
                         />
                         <SketchPicker
-                          color={this.state.color}
+                          color={this.state.settings[name]}
                           name={name}
                           onChange={color =>
                             this.handleColorChange(name, color)
