@@ -6,6 +6,7 @@ import uploadDashboard from '../uploadDashboard'
 import nunjucks from 'nunjucks'
 import _ from 'lodash'
 import traverse from 'traverse'
+import deployWithConfigExporter from '../deployWithConfigExporter'
 // import getConnectionDetails from '../getConnectionDetails'
 
 const getExistingConfigs = async config => {
@@ -97,20 +98,19 @@ export default async (req, res) => {
 
   console.log(controllerId)
 
-  const promises = ingredients.reduce((promises, ingredient) => {
+  const promises = ingredients.map(ingredient => {
     if (ingredient.type === 'dashboard') {
-      promises.push(
-        uploadDashboard({
-          ...connectionDetails,
-          dashboards: [ingredient.json],
-        })
-      )
+      return uploadDashboard({
+        ...connectionDetails,
+        dashboards: [ingredient.json],
+      })
+    } else {
+      return deployWithConfigExporter({ ingredient, settings })
     }
-    // TODO: All other types
-    return promises
-  }, [])
+  })
 
   const result = await Promise.all(promises)
+  console.log(result)
 
   res.send({ msg: 'Deployment complete' })
 }
