@@ -90,7 +90,7 @@ export default (loadImages = true, loadTemplates = false) => {
                 if (stats.isDirectory()) {
                   console.log("5. '%s' is a directory.", filePath)
                   const data = fs.readFileSync(
-                    fs.resolve(filePath, 'meta.json'),
+                    path.resolve(filePath, 'meta.json'),
                     'utf8'
                   )
                   try {
