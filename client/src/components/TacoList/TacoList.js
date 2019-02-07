@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Loading from '../Loading/Loading.js'
 
 const TacoItem = ({ id, name, description, image }) => (
   <Link to={`/taco/${id}`}>
@@ -61,19 +62,7 @@ class TacoList extends Component {
     }
 
     if (!isLoaded) {
-      return (
-        <div
-          className="alert alert-info d-flex align-items-center"
-          role="alert"
-        >
-          <strong>Loading...</strong>
-          <div
-            aria-hidden="true"
-            className="spinner-border ml-auto"
-            role="status"
-          />
-        </div>
-      )
+      return <Loading />
     }
 
     const { searchQuery } = this.props

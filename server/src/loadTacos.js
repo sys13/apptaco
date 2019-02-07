@@ -16,7 +16,7 @@ var download = (uri, filename, callback) => {
   })
 }
 
-export default () => {
+export default (loadImages = true, loadTemplates = false) => {
   console.log('1. loading tacos')
 
   const options = {
@@ -88,11 +88,26 @@ export default () => {
                   try {
                     const obj = JSON.parse(data)
                     console.log('5: ' + JSON.stringify(obj))
-                    if (obj.image) {
+                    if (loadImages && obj.image) {
                       obj.image = {
                         name: obj.image,
                         data: DataURI(filePath + '/' + obj.image),
                       }
+                    }
+                    if (loadTemplates && obj.ingredients) {
+                      obj.ingredients = obj.ingredients
+                        .map(ingredient => {
+                          try {
+                            ingredient.template = fs.readFileSync(
+                              filePath + '/' + ingredient.file,
+                              'utf8'
+                            )
+                            return ingredient
+                          } catch (e) {
+                            return null
+                          }
+                        })
+                        .filter(ingredient => ingredient !== null)
                     }
                     if (obj.name) {
                       obj.id = slugify(obj.name, {
@@ -109,7 +124,7 @@ export default () => {
                   }
                 }
               })
-              console.log('6. returning tacos', tacos)
+              // console.log('6. returning tacos', tacos)
               resolve(tacos)
               // return tacos
             })
