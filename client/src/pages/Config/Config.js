@@ -68,16 +68,14 @@ export default class Config extends Component {
         })
       })
       .catch(res => {
-        res.json().then(() => {
-          this.setState({
-            succeeded: false,
-            connectionTestLoading: false,
-            connectionError: {
-              errorMsg: 'Something went wrong...',
-              type: 'danger',
-            },
-            connectionTested: false,
-          })
+        this.setState({
+          succeeded: false,
+          connectionTestLoading: false,
+          connectionError: {
+            errorMsg: res.message ? res.message : 'Something went wrong...',
+            type: 'danger',
+          },
+          connectionTested: true,
         })
       })
   }
