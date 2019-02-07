@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import queryString from 'query-string'
 // import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import TacoList from '../../components/TacoList/TacoList.js'
@@ -12,6 +13,14 @@ class Landing extends Component {
       [name]: value,
     })
   }
+
+  componentDidMount() {
+    const { search } = queryString.parse(this.props.location.search)
+    if (search) {
+      this.setState({ search })
+    }
+  }
+
   render() {
     return (
       <div>

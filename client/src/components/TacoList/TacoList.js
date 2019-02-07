@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-const TacoItem = ({ id, name, description }) => (
+const TacoItem = ({ id, name, description, image }) => (
   <Link to={`/taco/${id}`}>
     <div className="card">
       <div className="card-body">
+        <img src={image.data} className="card-img-top" alt="..." />
         <h5 className="card-title">{name}</h5>
         <p className="card-text text-dark">{description}</p>
       </div>
@@ -41,36 +42,58 @@ class TacoList extends Component {
   }
   search(searchQuery, items) {
     return items.filter(
-      ({ name, description }) =>
-        name.includes(searchQuery) || description.includes(searchQuery)
+      ({ name, description, tags }) =>
+        name.toLowerCase().includes(searchQuery) ||
+        description.includes(searchQuery) ||
+        tags.includes(searchQuery)
     )
   }
   render() {
     const { error, isLoaded, items } = this.state
 
     if (error) {
-      return <div>Error: {error.message}</div>
-    } else if (!isLoaded) {
-      return <div>Loading...</div>
-    } else {
-      const { searchQuery } = this.props
-      const filteredItems =
-        searchQuery === '' ? items : this.search(searchQuery, items)
       return (
-        <div className="card-columns">
-          {filteredItems &&
-            filteredItems.length &&
-            filteredItems.map(({ id, name, description }) => (
-              <TacoItem
-                key={id}
-                id={id}
-                name={name}
-                description={description}
-              />
-            ))}
+        <div className="alert alert-danger" role="alert">
+          <h4 className="alert-heading">We dropped your tacos!</h4>
+          <p>Error Message: {error.message}</p>
         </div>
       )
     }
+
+    if (!isLoaded) {
+      return (
+        <div
+          className="alert alert-info d-flex align-items-center"
+          role="alert"
+        >
+          <strong>Loading...</strong>
+          <div
+            aria-hidden="true"
+            className="spinner-border ml-auto"
+            role="status"
+          />
+        </div>
+      )
+    }
+
+    const { searchQuery } = this.props
+    const filteredItems =
+      searchQuery === '' ? items : this.search(searchQuery.toLowerCase(), items)
+    return (
+      <div className="card-columns">
+        {filteredItems &&
+          filteredItems.length &&
+          filteredItems.map(({ id, name, description, image }) => (
+            <TacoItem
+              key={id}
+              id={id}
+              name={name}
+              image={image}
+              description={description}
+            />
+          ))}
+      </div>
+    )
   }
 }
 

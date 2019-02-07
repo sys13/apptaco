@@ -16,6 +16,7 @@ export default class Config extends Component {
       account,
       port,
       https,
+      connectionTestLoading: false,
       connectionTested: false,
     }
   }
@@ -36,6 +37,10 @@ export default class Config extends Component {
   onTestConnection = async event => {
     event.preventDefault()
 
+    this.setState({
+      connectionTestLoading: true,
+    })
+
     const { host, username, password, account, port, https } =
       (Cookies.get('controllerConfig') &&
         JSON.parse(Cookies.get('controllerConfig'))) ||
@@ -51,11 +56,13 @@ export default class Config extends Component {
       }),
     })
       .then(res => {
-        res.json().then(({ succeeded }) => {
+        res.json().then(({ succeeded, error }) => {
           console.log(succeeded)
 
           this.setState({
             succeeded,
+            connectionTestLoading: false,
+            connectionError: error,
             connectionTested: true,
           })
         })
@@ -64,6 +71,11 @@ export default class Config extends Component {
         res.json().then(() => {
           this.setState({
             succeeded: false,
+            connectionTestLoading: false,
+            connectionError: {
+              errorMsg: 'Something went wrong...',
+              type: 'danger',
+            },
             connectionTested: false,
           })
         })
@@ -80,15 +92,35 @@ export default class Config extends Component {
               className="btn btn-primary"
               onClick={this.onTestConnection}
             >
-              Test Connection
+              Save &amp; Test Connection
             </button>
           </div>
           <div>
+            {this.state.connectionTestLoading ? (
+              <div
+                className="alert alert-info d-flex align-items-center"
+                role="alert"
+              >
+                <strong>Testing connection...</strong>
+                <div
+                  aria-hidden="true"
+                  className="spinner-border ml-auto"
+                  role="status"
+                />
+              </div>
+            ) : null}
             {this.state.connectionTested && this.state.succeeded ? (
-              <span className="text-success">Connection succeeded!</span>
+              <div className="alert alert-success">Connection succeeded!</div>
             ) : null}
             {this.state.connectionTested && !this.state.succeeded ? (
-              <span className="text-danger">Connection failed</span>
+              <div className="alert alert-danger" role="alert">
+                <h4 className="alert-heading">Connection failed!</h4>
+                <p>
+                  {this.state.connectionError
+                    ? this.state.connectionError.errorMsg
+                    : 'No error message provided.'}
+                </p>
+              </div>
             ) : null}
           </div>
           <form>

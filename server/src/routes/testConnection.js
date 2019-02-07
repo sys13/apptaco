@@ -6,6 +6,7 @@ const getApps = async ({ options, baseURL }) =>
   rp({
     ...options,
     url: `${baseURL}/rest/applications?output=json`,
+    timeout: 10000,
   })
     .promise()
     .then(data => {
@@ -13,7 +14,12 @@ const getApps = async ({ options, baseURL }) =>
       return parsedData
     })
     .catch(err => {
-      return { errorMsg: `Error: ${err}`, type: 'danger' }
+      let message = err.message
+      console.log(err)
+      if (err.name === 'StatusCodeError' && err.message.includes('<h1>')) {
+        message = err.message.split(/<\/?h1>/)[1]
+      }
+      return { errorMsg: message, type: 'danger' }
     })
 
 export default async (req, res) => {
@@ -21,5 +27,9 @@ export default async (req, res) => {
   const { options, baseURL } = getConnectionDetails({ config })
   const result = await getApps({ options, baseURL })
 
-  res.send({ succeeded: _.isArray(result) })
+  if (_.isArray(result)) {
+    res.send({ succeeded: _.isArray(result) })
+  } else {
+    res.send({ succeeded: false, error: result })
+  }
 }

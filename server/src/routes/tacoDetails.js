@@ -1,7 +1,7 @@
 import loadTacos from '../loadTacos'
 
-export default (req, res) => {
-  const savedTacos = loadTacos()
+export default async (req, res) => {
+  const savedTacos = await loadTacos()
   const { id } = req.params
 
   const taco = savedTacos.find(({ id: tacoId }) => tacoId === id)

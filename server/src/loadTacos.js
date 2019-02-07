@@ -3,6 +3,8 @@ import fs from 'fs'
 import request from 'request'
 import extract from 'extract-zip'
 import path from 'path'
+import slugify from 'slugify'
+import { sync as DataURI } from 'datauri'
 
 var download = (uri, filename, callback) => {
   request.head(uri, function(err, res, body) {
@@ -82,14 +84,32 @@ export default () => {
                 // level 1 we are in a taco now
                 if (stats.isDirectory()) {
                   console.log("5. '%s' is a directory.", filePath)
-                  const obj = JSON.parse(
-                    fs.readFileSync(filePath + '/meta.json', 'utf8')
-                  )
-                  console.log('5: ' + JSON.stringify(obj))
-                  tacos.push(obj)
+                  const data = fs.readFileSync(filePath + '/meta.json', 'utf8')
+                  try {
+                    const obj = JSON.parse(data)
+                    console.log('5: ' + JSON.stringify(obj))
+                    if (obj.image) {
+                      obj.image = {
+                        name: obj.image,
+                        data: DataURI(filePath + '/' + obj.image),
+                      }
+                    }
+                    if (obj.name) {
+                      obj.id = slugify(obj.name, {
+                        replacement: '-',
+                        lower: true,
+                      })
+                      tacos.push(obj)
+                    }
+                  } catch (e) {
+                    console.log(
+                      `5: Could not parse file ${filePath}/meta.json`,
+                      e
+                    )
+                  }
                 }
               })
-              console.log('6. returning tacos' + tacos)
+              console.log('6. returning tacos', tacos)
               resolve(tacos)
               // return tacos
             })

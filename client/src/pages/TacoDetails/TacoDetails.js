@@ -2,10 +2,49 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 
+class ExternaLink extends Component {
+  render() {
+    return (
+      <span>
+        {this.props.children}
+        <a href={this.props.to}>
+          <img
+            style={{ height: '12px', marginLeft: '2px' }}
+            alt={`(vist ${this.props.to})`}
+            src={process.env.PUBLIC_URL + '/external.svg'}
+          />
+        </a>
+      </span>
+    )
+  }
+}
+
+class SupportBadge extends Component {
+  render() {
+    const badge = { author: 'light', appdynamics: 'info', vendor: 'success' }[
+      this.props.type
+    ]
+    return (
+      <span className={`badge badge-pill badge-${badge}`}>
+        {this.props.type} supported
+      </span>
+    )
+  }
+}
+
 class TacoDetails extends Component {
   render() {
-    const { id, name, description, version, tags, authors, ingredients } =
-      this.props.taco || {}
+    const {
+      id,
+      name,
+      support,
+      description,
+      version,
+      tags,
+      authors,
+      ingredients,
+      product_link,
+    } = this.props.taco || {}
     return (
       <div className="container">
         <Helmet>
@@ -20,7 +59,8 @@ class TacoDetails extends Component {
 
         <ul className="taco-details-info list-group">
           <li className="list-group-item">
-            <b>Name:</b> {name}
+            <b>Name:</b> <ExternaLink to={product_link}>{name}</ExternaLink>{' '}
+            <SupportBadge type={support} />
           </li>
           {version ? (
             <li className="list-group-item">
@@ -29,7 +69,19 @@ class TacoDetails extends Component {
           ) : null}
           {tags ? (
             <li className="list-group-item">
-              <b>Tags:</b> {tags.join(', ')}
+              <b>Tags:</b>{' '}
+              {tags.map((tag, index) => (
+                <span>
+                  <Link
+                    className="badge badge-warning"
+                    key={index}
+                    to={`/?search=${tag}`}
+                  >
+                    {tag}
+                  </Link>
+                  &nbsp;
+                </span>
+              ))}
             </li>
           ) : null}
           {authors ? (
