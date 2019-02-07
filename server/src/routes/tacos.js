@@ -4,11 +4,7 @@ export default (req, res) => {
   const savedTacos = loadTacos()
   //   console.log(req.body.post)
 
-  const filteredTacos = savedTacos.map(({ id, name, description }) => ({
-    id,
-    name,
-    description,
-  }))
+  const filteredTacos = savedTacos
 
   res.send(filteredTacos)
 }
