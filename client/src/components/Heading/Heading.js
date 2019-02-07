@@ -6,6 +6,11 @@ class Heading extends Component {
     return (
       <nav className="navbar navbar-expand-sm navbar-dark">
         <Link className="navbar-brand" to="/">
+          <img
+            src={process.env.PUBLIC_URL + '/icon-white.svg'}
+            alt="logo"
+            className="heading-logo"
+          />
           AppTaco
         </Link>
         <Link className="nav-link" to="/">
