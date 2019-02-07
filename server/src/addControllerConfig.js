@@ -12,7 +12,7 @@ export default async ({
     port !== 80 ? `:${port}` : ''
   }`
 
-  rp({
+  return rp({
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -23,7 +23,10 @@ export default async ({
       url,
       user,
     },
-    url: `${process.env.CONFIG_EXPORTER_URL}/api/controllers`,
+    url: `${process.env.CONFIG_EXPORTER_URL}/api/controllers`.replace(
+      '//api',
+      '/api'
+    ),
   })
     .promise()
     .then(data => {

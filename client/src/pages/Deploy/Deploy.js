@@ -35,7 +35,7 @@ class DeploymentConfig extends Component {
   }
 
   deploy = () => {
-    const { taco, deployScope } = this.props
+    const { taco, deployScope, config } = this.props
     console.log('PROPS', this.props)
     this.setState({
       deploying: true,
@@ -49,7 +49,12 @@ class DeploymentConfig extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          post: { deployScope, id: taco.id, settings: this.state.settings },
+          post: {
+            deployScope,
+            config,
+            id: taco.id,
+            settings: this.state.settings,
+          },
         }),
       }
     )
@@ -189,6 +194,7 @@ class Deploy extends Component {
           taco={item}
           deployScope={deployScope}
           controllerHost={controllerHost}
+          config={this.props.config}
         />
       </div>
     )

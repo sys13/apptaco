@@ -71,7 +71,7 @@ class TacoDetails extends Component {
             <li className="list-group-item">
               <b>Tags:</b>{' '}
               {tags.map((tag, index) => (
-                <span>
+                <span key={index}>
                   <Link
                     className="badge badge-warning"
                     key={index}
