@@ -39,14 +39,15 @@ export default (loadImages = true, loadTemplates = false) => {
         res.on('end', () => {
           // Data reception is done, do whatever with it!
           const parsed = JSON.parse(body)
+          const tacosZipPath = path.resolve(dir, 'tacos.zip')
 
           const updated_date = new Date(parsed.updated_at)
 
           console.log('2. latest update:' + updated_date)
 
           let mtime
-          if (fs.existsSync('tacos.zip')) {
-            const stats = fs.statSync('tacos.zip')
+          if (fs.existsSync(tacosZipPath)) {
+            const stats = fs.statSync(tacosZipPath)
 
             mtime = stats.mtime
             console.log('3. tacos.zip date: ' + mtime)
@@ -57,7 +58,6 @@ export default (loadImages = true, loadTemplates = false) => {
               'b.1need to update because' + updated_date + '>' + mtime
             )
 
-            const tacosZipPath = path.resolve(dir, 'tacos.zip')
             download(
               'https://github.com/erikwennerberg/apptacos/archive/master.zip',
               tacosZipPath,
@@ -89,7 +89,10 @@ export default (loadImages = true, loadTemplates = false) => {
                 // level 1 we are in a taco now
                 if (stats.isDirectory()) {
                   console.log("5. '%s' is a directory.", filePath)
-                  const data = fs.readFileSync(filePath + '/meta.json', 'utf8')
+                  const data = fs.readFileSync(
+                    fs.resolve(filePath, 'meta.json'),
+                    'utf8'
+                  )
                   try {
                     const obj = JSON.parse(data)
                     console.log('5: ' + JSON.stringify(obj))
