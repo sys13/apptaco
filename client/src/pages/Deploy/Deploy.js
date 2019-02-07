@@ -8,7 +8,7 @@ class Deploy extends Component {
     deployMsg: '',
   }
   deploy = () => {
-    const { id, deployScope } = this.props
+    const { id, deployScope, config } = this.props
     this.setState({
       deploying: true,
       deployMsg: 'Deployment in progress',
@@ -18,7 +18,7 @@ class Deploy extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ post: { deployScope } }),
+      body: JSON.stringify({ post: { deployScope, config } }),
     })
       .then(res => {
         res.json().then(({ msg }) => {

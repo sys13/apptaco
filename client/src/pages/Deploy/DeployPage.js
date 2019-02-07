@@ -7,10 +7,12 @@ class DeployPage extends Component {
   render() {
     const { match } = this.props
     const { id, deployScope } = match.params
-    const { host: controllerHost } =
+    const config =
       (Cookies.get('controllerConfig') &&
         JSON.parse(Cookies.get('controllerConfig'))) ||
       {}
+
+    const { host: controllerHost } = config || {}
 
     if (!id) {
       return
@@ -20,6 +22,7 @@ class DeployPage extends Component {
         id={id}
         deployScope={deployScope}
         controllerHost={controllerHost}
+        config={config}
       />
     )
   }

@@ -30,6 +30,8 @@ AppTaco is already deployed to https://sys13.github.io/apptaco
 
 **Server Deploy**
 
+- copy `server/.env.development` to `server/.env.development.local` and modify as needed
+- copy `server/.env.development` to `server/.env.production`, and modify as needed
 - `./deployServer.sh` or `./deployServerForce.sh`
 
 # Maintainer
