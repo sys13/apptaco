@@ -57,13 +57,14 @@ export default (loadImages = true, loadTemplates = false) => {
               'b.1need to update because' + updated_date + '>' + mtime
             )
 
+            const tacosZipPath = path.resolve(dir, 'tacos.zip')
             download(
               'https://github.com/erikwennerberg/apptacos/archive/master.zip',
-              path.resolve(dir, 'tacos.zip'),
+              tacosZipPath,
               () => {
                 console.log('b2 download done')
                 console.log('b3 unzipping tacos.zip to ' + dir)
-                extract('tacos.zip', { dir }, err => {
+                extract(tacosZipPath, { dir }, err => {
                   console.log(err)
                 })
               }
