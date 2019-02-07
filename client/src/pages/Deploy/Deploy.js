@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import changeCase from 'change-case'
 import Loading from '../../components/Loading/Loading.js'
+import { SketchPicker } from 'react-color'
 
 class DeploymentConfig extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class DeploymentConfig extends Component {
 
     this.state = {
       deploying: false,
+      visibleColorPicker: '',
       deployMsg: '',
       settings,
     }
@@ -30,6 +32,27 @@ class DeploymentConfig extends Component {
       settings: {
         ...this.state.settings,
         [name]: value,
+      },
+    })
+  }
+
+  handleClickColor(name) {
+    const visibleColorPicker =
+      this.state.visibleColorPicker === name ? '' : name
+    this.setState({ visibleColorPicker })
+  }
+
+  handleCloseColor = () => {
+    console.log('close')
+    this.setState({ visibleColorPicker: '' })
+  }
+
+  handleColorChange(name, color) {
+    console.log(name, color)
+    this.setState({
+      settings: {
+        ...this.state.settings,
+        [name]: color.hex,
       },
     })
   }
@@ -77,6 +100,27 @@ class DeploymentConfig extends Component {
   render() {
     const { taco, controllerHost } = this.props
 
+    const styles = {
+      swatch: {
+        padding: '5px',
+        background: '#fff',
+        borderRadius: '1px',
+        boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
+        cursor: 'pointer',
+      },
+      popover: {
+        position: 'absolute',
+        zIndex: '2',
+      },
+      cover: {
+        position: 'fixed',
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px',
+      },
+    }
+
     return (
       <div className="my-3">
         <h1 className="taco-details-title">Deploy Taco: {taco.name}</h1>
@@ -94,14 +138,46 @@ class DeploymentConfig extends Component {
                 <label htmlFor={`deployment-setting-${name}`}>
                   {changeCase.title(name)}
                 </label>
-                <input
-                  onChange={this.handleSettingsChange}
-                  name={name}
-                  type="text"
-                  className="form-control"
-                  id={`deployment-setting-${name}`}
-                  value={this.state.settings[name]}
-                />
+                {setting.type === 'color' ? (
+                  <div>
+                    <div
+                      style={styles.swatch}
+                      onClick={() => this.handleClickColor(name)}
+                    >
+                      <div
+                        style={{
+                          height: '20px',
+                          borderRadius: '2px',
+                          background: `${this.state.settings[name]}`,
+                        }}
+                      />
+                    </div>
+                    {this.state.visibleColorPicker === name ? (
+                      <div style={styles.popover}>
+                        <div
+                          style={styles.cover}
+                          onClick={this.handleCloseColor}
+                        />
+                        <SketchPicker
+                          color={this.state.color}
+                          name={name}
+                          onChange={color =>
+                            this.handleColorChange(name, color)
+                          }
+                        />
+                      </div>
+                    ) : null}
+                  </div>
+                ) : (
+                  <input
+                    onChange={this.handleSettingsChange}
+                    name={name}
+                    type="text"
+                    className="form-control"
+                    id={`deployment-setting-${name}`}
+                    value={this.state.settings[name]}
+                  />
+                )}
                 <small className="form-text text-muted">
                   {setting.description}
                 </small>
