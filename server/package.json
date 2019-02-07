@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js"
+    "dev": "env-cmd .env.development.local npm run start-js",
+    "start-js": "nodemon --exec babel-node src/index.js",
+    "start": "env-cmd .env.production npm run start-js"
   },
   "dependencies": {
     "@babel/cli": "^7.2.3",
