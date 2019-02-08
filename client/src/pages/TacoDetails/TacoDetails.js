@@ -103,7 +103,8 @@ class TacoDetails extends Component {
             {ingredients && ingredients.length
               ? ingredients.map(({ type, doc }) => (
                   <li key={type} className="list-group-item">
-                    <b>{type}</b> - {doc}
+                    <b>{type}</b>
+                    {doc ? ` - ${doc}` : null}
                     <Link to={`/taco/${id}/deploy/${type}`}>
                       <button className="btn btn-secondary float-right">
                         Deploy Ingredient

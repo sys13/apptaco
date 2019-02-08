@@ -202,7 +202,7 @@ class DeploymentConfig extends Component {
               <span className="">Deploying Dashboard</span>
             </div>
           ) : (
-            <div>Deploy Dashboard</div>
+            <div>Deploy</div>
           )}
         </button>
         <div>{this.state.deployMsg}</div>
