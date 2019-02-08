@@ -7,6 +7,8 @@ import TacoList from '../../components/TacoList/TacoList.js'
 class Landing extends Component {
   state = {
     search: '',
+    // Auto Detection is a fake feature for the demo
+    autoDetect: false,
   }
   handleInputChange = ({ target: { name, value } }) => {
     this.setState({
@@ -15,9 +17,9 @@ class Landing extends Component {
   }
 
   componentDidMount() {
-    const { search } = queryString.parse(this.props.location.search)
+    const { search, autoDetect } = queryString.parse(this.props.location.search)
     if (search) {
-      this.setState({ search })
+      this.setState({ search, autoDetect })
     }
   }
 
@@ -43,26 +45,45 @@ class Landing extends Component {
           </p>
         </div>
         <div className="container">
-          <div className="landing-searchbar input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search"
-              name="search"
-              aria-label="Search"
-              aria-describedby="button-addon2"
-              onChange={this.handleInputChange}
-              value={this.state.search}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-primary"
-                type="button"
-                id="button-addon2"
-              >
-                Search
-              </button>
+          <div className="landing-searchbar form-group">
+            <div className="input-group mb-3">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search"
+                name="search"
+                aria-label="Search"
+                aria-describedby="button-addon2"
+                onChange={this.handleInputChange}
+                value={this.state.search}
+              />
+              <div className="input-group-append">
+                <button
+                  className="btn btn-primary"
+                  type="button"
+                  id="button-addon2"
+                >
+                  Search
+                </button>
+              </div>
             </div>
+            {this.state.autoDetect ? (
+              <div
+                class="form-text alert alert-success alert-dismissible fade show"
+                role="alert"
+              >
+                <b>Congratulations!</b> We autodetected the following COTS in
+                your business application: {this.state.autoDetect}
+                <button
+                  type="button"
+                  class="close"
+                  data-dismiss="alert"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            ) : null}
           </div>
           <TacoList searchQuery={this.state.search} />
         </div>

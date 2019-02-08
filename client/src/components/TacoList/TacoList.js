@@ -42,12 +42,16 @@ class TacoList extends Component {
       )
   }
   search(searchQuery, items) {
-    return items.filter(
-      ({ name, description, tags }) =>
-        name.toLowerCase().includes(searchQuery) ||
-        description.includes(searchQuery) ||
-        tags.includes(searchQuery)
-    )
+    return items.filter(({ name, description, tags }) => {
+      return searchQuery.split(' ').reduce((carry, word) => {
+        return (
+          carry ||
+          name.toLowerCase().includes(word) ||
+          description.includes(word) ||
+          tags.includes(word)
+        )
+      }, false)
+    })
   }
   render() {
     const { error, isLoaded, items } = this.state
