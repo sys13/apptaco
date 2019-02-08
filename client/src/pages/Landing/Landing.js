@@ -36,12 +36,8 @@ class Landing extends Component {
             can deploy dashboards, business transaction scopes, rules, health
             rules, JMX, browser eum configs, and more! It also has a powerful
             templating engine that can generate very customizable configs and
-            dashboards.
-          </p>
-          <hr className="my-4" />
-          <p className="lead">
-            We have a growing library of configs. Feel free to use these tacos
-            and <Link to={'/share'}>share</Link>!
+            dashboards. We have a growing library of configs. Feel free to use
+            these tacos and <Link to={'/share'}>share</Link>!
           </p>
         </div>
         <div className="container">
