@@ -16,9 +16,7 @@ const TacoItem = ({ id, name, description, image, support }) => (
     <div className="card-body">
       <Link to={`/taco/${id}`}>
         <img src={image.data} className="card-img-top" alt="..." />
-        <h5 className="card-title">
-          {name} {support}
-        </h5>
+        <h5 className="card-title">{name}</h5>
         <p className="card-text text-dark">{description}</p>
       </Link>
     </div>
