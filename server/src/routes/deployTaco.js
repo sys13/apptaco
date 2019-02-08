@@ -7,7 +7,6 @@ import nunjucks from 'nunjucks'
 import _ from 'lodash'
 import traverse from 'traverse'
 import deployWithConfigExporter from '../deployWithConfigExporter'
-// import getConnectionDetails from '../getConnectionDetails'
 
 const getExistingConfigs = async config => {
   // Replace double slashes with single slashes since ConfigExporter will show the UI if we go for //
@@ -105,7 +104,12 @@ export default async (req, res) => {
         dashboards: [ingredient.json],
       })
     } else {
-      return deployWithConfigExporter({ ingredient, settings })
+      return deployWithConfigExporter({
+        ingredient,
+        settings,
+        connectionDetails,
+        targetControllerId: controllerId,
+      })
     }
   })
 
