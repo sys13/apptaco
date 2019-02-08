@@ -40,14 +40,12 @@ export default async ({
   const entities = {
     targetEntities: ingredient.json.entities[1].map(([, entity]) => {
       let entityStr
-      console.log('--------###')
-
-      console.log(entity.idStr)
-      console.log(entity.id)
 
       if (entity.idStr === null && entity.id === 0) {
-        entityStr = JSON.parse(entity.jsonStr$$).summary.id
-        console.log(`EntityStr: ${entityStr}`)
+        const jsonStr = JSON.parse(entity.jsonStr$$)
+
+        entityStr =
+          (jsonStr.summary && jsonStr.summary.id) || jsonStr.rule.summary.id
       }
       const obj = {
         sourceEntityIdStr: entity.idStr || entityStr,
@@ -61,7 +59,6 @@ export default async ({
     properties: { synchronize: false },
     jsonWithTypeInfo: JSON.stringify(ingredient.json),
   }
-  console.log(entities)
 
   return rp({
     headers: {

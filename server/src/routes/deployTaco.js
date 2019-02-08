@@ -96,6 +96,7 @@ export default async (req, res) => {
     : await addControllerConfig(req.body.post.config)
 
   console.log(controllerId)
+  console.log(ingredients)
 
   const promises = ingredients.map(ingredient => {
     if (ingredient.type === 'dashboard') {
