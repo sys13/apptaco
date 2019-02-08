@@ -1,13 +1,13 @@
 {
   "main.css": "/apptaco/static/css/main.549597d6.chunk.css",
-  "main.js": "/apptaco/static/js/main.9435cb82.chunk.js",
-  "main.js.map": "/apptaco/static/js/main.9435cb82.chunk.js.map",
+  "main.js": "/apptaco/static/js/main.cbdafdb4.chunk.js",
+  "main.js.map": "/apptaco/static/js/main.cbdafdb4.chunk.js.map",
   "static/js/1.05cff124.chunk.js": "/apptaco/static/js/1.05cff124.chunk.js",
   "static/js/1.05cff124.chunk.js.map": "/apptaco/static/js/1.05cff124.chunk.js.map",
   "runtime~main.js": "/apptaco/static/js/runtime~main.5d8b73f6.js",
   "runtime~main.js.map": "/apptaco/static/js/runtime~main.5d8b73f6.js.map",
   "static/css/main.549597d6.chunk.css.map": "/apptaco/static/css/main.549597d6.chunk.css.map",
   "index.html": "/apptaco/index.html",
-  "precache-manifest.8156cb76fe78dd9735598bac0c66f529.js": "/apptaco/precache-manifest.8156cb76fe78dd9735598bac0c66f529.js",
+  "precache-manifest.f4803d330b64df9f0a32f76a57d5a602.js": "/apptaco/precache-manifest.f4803d330b64df9f0a32f76a57d5a602.js",
   "service-worker.js": "/apptaco/service-worker.js"
 }
