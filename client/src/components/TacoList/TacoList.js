@@ -2,16 +2,27 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Loading from '../Loading/Loading.js'
 
-const TacoItem = ({ id, name, description, image }) => (
-  <Link to={`/taco/${id}`}>
-    <div className="card">
-      <div className="card-body">
-        <img src={image.data} className="card-img-top" alt="..." />
-        <h5 className="card-title">{name}</h5>
-        <p className="card-text text-dark">{description}</p>
+const TacoItem = ({ id, name, description, image, support }) => (
+  <div className="card">
+    {support === 'vendor' || support === 'appdynamics' ? (
+      <div
+        class={`card-header bg-${
+          support === 'vendor' ? 'success' : 'info'
+        } text-white`}
+      >
+        {support} supported
       </div>
+    ) : null}
+    <div className="card-body">
+      <Link to={`/taco/${id}`}>
+        <img src={image.data} className="card-img-top" alt="..." />
+        <h5 className="card-title">
+          {name} {support}
+        </h5>
+        <p className="card-text text-dark">{description}</p>
+      </Link>
     </div>
-  </Link>
+  </div>
 )
 
 class TacoList extends Component {
@@ -76,12 +87,13 @@ class TacoList extends Component {
       <div className="card-columns">
         {filteredItems &&
           filteredItems.length &&
-          filteredItems.map(({ id, name, description, image }) => (
+          filteredItems.map(({ id, name, description, image, support }) => (
             <TacoItem
               key={id}
               id={id}
               name={name}
               image={image}
+              support={support}
               description={description}
             />
           ))}

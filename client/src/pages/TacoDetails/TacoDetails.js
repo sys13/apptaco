@@ -43,6 +43,7 @@ class TacoDetails extends Component {
       tags,
       authors,
       ingredients,
+      prerequisites,
       product_link,
     } = this.props.taco || {}
     return (
@@ -94,6 +95,12 @@ class TacoDetails extends Component {
             <li className="list-group-item">
               <b>Description: </b>
               {description}
+            </li>
+          ) : null}
+          {prerequisites ? (
+            <li className="list-group-item">
+              <b>Prerequisites: </b>
+              {prerequisites}
             </li>
           ) : null}
         </ul>

@@ -168,6 +168,20 @@ class DeploymentConfig extends Component {
                       </div>
                     ) : null}
                   </div>
+                ) : setting.type === 'select' ? (
+                  <select
+                    className="form-control"
+                    name={name}
+                    onChange={this.handleSettingsChange}
+                    id={`deployment-setting-${name}`}
+                    value={this.state.settings[name]}
+                  >
+                    {setting.options.map(option => (
+                      <option value={option} key={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 ) : (
                   <input
                     onChange={this.handleSettingsChange}
